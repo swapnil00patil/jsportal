@@ -1,4 +1,4 @@
-package hello;
+package com.jsportal.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
