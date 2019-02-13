@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import VisibilitySensor from 'react-visibility-sensor';
 
+import './VerticalTimelineElement.css'
 class VerticalTimelineElement extends Component {
   constructor(props) {
     super(props);
