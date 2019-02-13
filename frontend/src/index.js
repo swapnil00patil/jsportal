@@ -1,16 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactGA from 'react-ga';
+import Loadable from 'react-loadable';
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom';
 
-import App from './containers/App';
-import { store } from './store';
 import './assets/css/global.css';
-import { isMock } from './utils/http';
+import App from './containers/App';
+import configureStore from './store';
 
-if(!isMock) {
-  ReactGA.initialize('');
-}
-ReactDOM.render(<App store={store} />, document.getElementById('root'));
+const store = configureStore(window.__REDUX_STATE__);
 
+const AppBundle = (
+    <Provider store={store}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>
+);
 
+window.onload = () => {
+    Loadable.preloadReady().then(() => {
+        ReactDOM.hydrate(
+            AppBundle,
+            document.getElementById('root')
+        );
+    });
+};
 
