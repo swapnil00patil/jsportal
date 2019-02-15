@@ -12,7 +12,7 @@ export default function configureStore(state = initialState) {
     state,
     compose(
       applyMiddleware(...middlewares),
-      // (window && window.devToolsExtension) ? window.devToolsExtension() : f => f
+      (window && window.devToolsExtension) ? window.devToolsExtension() : f => f
     )
   );
   store.runSaga = sagaMiddleware.run;

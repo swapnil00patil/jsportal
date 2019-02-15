@@ -1,47 +1,57 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import styled from 'styled-components/macro'; 
 
 import { getAllTimelineEvents } from './model/actions'
 import  VerticalTimeline from '../../components/timeline/VerticalTimeline';
 import  VerticalTimelineElement from '../../components/timeline/VerticalTimelineElement';
+import Loading from '../../components/Loading';
+import Header from '../../components/Header';
+import { loaderTime } from '../../config';
+import Card from './components/Card'
 
-const STIcon = styled.div`
+const STContainer = styled.div`
 
 `
 
 class Timeline extends Component {
+  state = {
+    showLoader: false
+  }
+
   componentDidMount() {
     const { getAllTimelineEvents } = this.props;
     getAllTimelineEvents();
+    setTimeout(() => {
+      this.setState({
+        showLoader: true
+      })
+    }, loaderTime * 1000)
   }
 
   render() {
-    return (
-      <VerticalTimeline layout='1-column'>
-        <VerticalTimelineElement
-          icon="JUN 29 2017"
-        >
-          <h3 className="vertical-timeline-element-title">Creative Director</h3>
-          <p>
-            Creative Direction, User Experience, Visual Design, Project Management, Team Leading
-          </p>
-        </VerticalTimelineElement>
-      </VerticalTimeline>
-    );
+    const { allEvents } = this.props;
+    const { showLoader } = this.state;
+    return <STContainer>
+        { (allEvents.loading || !showLoader) ? <Loading /> : <React.Fragment>
+          <Header key="headerkey" />
+          <VerticalTimeline layout='1-column'>
+            { allEvents.data.map((event, index) => <VerticalTimelineElement
+                data={event} 
+                key={'event' + index}
+                icon={event.date}>
+                <Card card={event} />
+              </VerticalTimelineElement>)}
+          </VerticalTimeline> 
+          </React.Fragment>
+      }
+      </STContainer>;
   }
 }
-// Title	event heading
-// description	few details of the event
-// date	month and year
-// links	multiple links related to the event
-// media 	images, (video embed?)
-// personnel	people involved. E.g. creator of js, creator of jquery, node, angular, react
-// Topic category	e.g. language, library, framework, tooling
-// Learning Material	links to tuts, docs, videos, courses
+
 export const mapStateToProps = state => {
   return { 
-    timeline: (state.timeline) || {}
+    allEvents: (state.timeline.all) || {}
   };
 };
 

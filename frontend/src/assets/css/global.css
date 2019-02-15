@@ -1,5 +1,15 @@
+html {
+  font-size:62.5%;
+}
 body {
-  font-size:14px;
+  font-size: 1.6rem;
   margin: 0;
   padding: 0;
+}
+
+.dropdown > div {
+  border: none;
+  width: 200px;
+  margin: 0 8px;
+  color: #000;
 }

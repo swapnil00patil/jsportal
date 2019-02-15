@@ -1,5 +1,8 @@
 export default {
   timeline: {
-    all: []
+    all: {
+      data: [],
+      loading: false
+    }
   }
 };

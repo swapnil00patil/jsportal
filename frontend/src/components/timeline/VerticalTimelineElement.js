@@ -48,7 +48,7 @@ class VerticalTimelineElement extends Component {
           onChange={this.onVisibilitySensorChange}
         >
           <div>
-            <span // eslint-disable-line jsx-a11y/no-static-element-interactions
+            <span
               style={iconStyle}
               onClick={iconOnClick}
               className={`vertical-timeline-element-icon ${

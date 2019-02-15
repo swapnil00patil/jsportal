@@ -3,14 +3,15 @@ import { Switch, Route } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
 import NotFound from '../components/NotFound';
+import Loading from '../components/Loading'
 
-function Loading() {
-  return 'loading';
+function Loader() {
+  return <Loading />;
 }
 
 const Timeline = Loadable({
   loader: () => import(/* webpackChunkName: "timeline" */ '../containers/Timeline'),
-  loading: Loading
+  loading: Loader
 });
 
 const routes = () => {

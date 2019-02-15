@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom';
 
 import './assets/css/global.css';
+import './assets/css/animations.css';
 import App from './containers/App';
 import configureStore from './store';
 

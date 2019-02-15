@@ -1,12 +1,12 @@
 import timelineMock from '../__mocks__/timeline'
 
-export const isMock = true;
+export const isMock = false;
 
-export const callAPI = () => {
+export const callAPI = (url, base_url = 'http://www.amock.io/api/swapnil00pa') => {
   if(isMock) {
     return timelineMock;
   } else {
-    return fetch('https://newsapi.org/v1/articles')
+    return fetch(base_url + url)
       .then(response => response.json()); 
   }
 }  
