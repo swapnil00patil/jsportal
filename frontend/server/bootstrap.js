@@ -8,7 +8,6 @@ require('@babel/register')({
     plugins: [
         'syntax-dynamic-import',
         'dynamic-import-node',
-        'babel-plugin-styled-components',
         'react-loadable/babel',
         '@babel/plugin-proposal-class-properties'
     ]

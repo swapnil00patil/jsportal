@@ -1,9 +1,10 @@
 import React from 'react'
-import ReactDOMServer from 'react-dom/server'
+import ReactDOMServer, { renderToString } from 'react-dom/server'
 import Loadable from 'react-loadable';
 import { Provider as ReduxProvider } from 'react-redux'
 import { StaticRouter } from 'react-router';
 import { Helmet } from 'react-helmet';
+import { ServerStyleSheet } from 'styled-components';
 
 // import our main App component
 import App from '../../src/containers/App';
@@ -33,16 +34,15 @@ export default (store) => (req, res, next) => {
         const modules = [];
         const routerContext = {};
 
+        const appShell = <Loadable.Capture report={m => modules.push(m)}>
+        <ReduxProvider store={store}>
+            <StaticRouter location={req.baseUrl} context={routerContext}>
+              <App />
+            </StaticRouter>
+        </ReduxProvider>
+    </Loadable.Capture>;
         // render the app as a string
-        const html = ReactDOMServer.renderToString(
-            <Loadable.Capture report={m => modules.push(m)}>
-                <ReduxProvider store={store}>
-                    <StaticRouter location={req.baseUrl} context={routerContext}>
-                      <App />
-                    </StaticRouter>
-                </ReduxProvider>
-            </Loadable.Capture>
-        );
+        const html = ReactDOMServer.renderToString(appShell);
 
         // get the stringified state
         const reduxState = JSON.stringify(store.getState());
@@ -53,6 +53,11 @@ export default (store) => (req, res, next) => {
 
         // get HTML headers
         const helmet = Helmet.renderStatic();
+
+        // get styles
+        const sheet = new ServerStyleSheet();
+        sheet.collectStyles(appShell)
+        const styles = sheet.getStyleTags();
 
         // now inject the rendered app into our html and send it to the client
         return res.send(
@@ -65,6 +70,7 @@ export default (store) => (req, res, next) => {
                 .replace('</body>', extraChunks.join('') + '</body>')
                 // write the HTML header tags
                 .replace('<title></title>', helmet.title.toString() + helmet.meta.toString())
+                .replace('<style></style>', styles)
         );
     });
 }

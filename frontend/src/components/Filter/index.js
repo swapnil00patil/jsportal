@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
 import Textbox from '../Textbox'
 import Dropdown from '../Dropdown'
