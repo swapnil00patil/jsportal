@@ -79,7 +79,6 @@ VerticalTimelineElement.propTypes = {
     PropTypes.node,
   ]),
   className: PropTypes.string,
-  icon: PropTypes.element,
   iconStyle: PropTypes.shape({}),
   iconOnClick: PropTypes.func,
   style: PropTypes.shape({}),

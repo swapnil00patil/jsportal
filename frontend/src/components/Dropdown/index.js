@@ -26,7 +26,6 @@ class Dropdown extends Component {
 }
 
 Dropdown.propTypes = {
-    title: PropTypes.string.isRequired,
     disabled: PropTypes.bool
 };
 

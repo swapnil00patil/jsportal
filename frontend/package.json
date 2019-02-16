@@ -19,6 +19,7 @@
     "react-dom": "^16.8.1",
     "react-ga": "^2.5.x",
     "react-helmet": "^5.2.0",
+    "react-image-video-lightbox": "^2.0.1",
     "react-loadable": "^5.4.0",
     "react-redux": "^6.0.0",
     "react-router": "^4.3.1",
